@@ -17,7 +17,7 @@ function ManagerLogin() {
         
         const managerId = response.data.managerId; // Correctly extract managerId from response data
         
-        history.push(`/managers/${managerId}/missions`);
+        history.push(`/managers/${managerId}/managing`);
         //Create an axios.get here that gives me all logic needed for manager
         
     } catch (error) {
