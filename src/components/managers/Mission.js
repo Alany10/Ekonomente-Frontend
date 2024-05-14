@@ -70,7 +70,7 @@ function Mission() {
     }
   };
 
-  const handleAssingConsult = () => {
+  const handleAssignConsult = () => {
     if (selectedMission) {
       history.push(`/mission/${selectedMission.id}/consult`);
     }
@@ -81,7 +81,7 @@ function Mission() {
       <h2>Missions</h2>
       <div>
         <button onClick={handleCreateMission}>Create Mission</button>
-        <button onClick={handleAssingConsult} disabled={!selectedMission}>Assign Mission</button>
+        <button onClick={handleAssignConsult} disabled={!selectedMission}>Assign Consult</button>
       </div>
       {showCreateMissionForm && (
         <div>
