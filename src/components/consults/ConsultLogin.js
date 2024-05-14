@@ -11,15 +11,14 @@ function ConsultLogin() {
 
   const handleLogin = async () => {
     try {
-        const response = await axios.post('http://localhost:8080/api/v1/consults/login', { email, password });
+        const response = await axios.post('http://localhost:8080/consult/login', { email, password });
         
         console.log('Login successful', response.data);
         
         const consultId = response.data.consultId; // Correctly extract consultId from response data
         
         // Redirect to the missions page upon successful login
-        history.push(`/consults/${consultId}/missions`);
-        //Create an axios.get here that gives me all
+        history.push(`/consult/${consultId}/mission`);
         
     } catch (error) {
         setErrorMessage('Invalid email or password. Please try again.');

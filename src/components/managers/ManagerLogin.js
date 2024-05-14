@@ -11,14 +11,14 @@ function ManagerLogin() {
 
   const handleLogin = async () => {
     try {
-        const response = await axios.post('http://localhost:8080/api/v1/managers/login', { email, password });
+        const response = await axios.post('http://localhost:8080/manager/login', { email, password });
         
         console.log('Login successful', response.data);
         
         const managerId = response.data.managerId; // Correctly extract managerId from response data
         
-        history.push(`/managers/${managerId}/managing`);
-        //Create an axios.get here that gives me all logic needed for manager
+        history.push(`/manager/${managerId}/dashboard`);
+        
         
     } catch (error) {
         setErrorMessage('Invalid email or password. Please try again.');
