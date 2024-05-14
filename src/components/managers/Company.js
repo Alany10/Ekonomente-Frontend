@@ -21,10 +21,11 @@ function Company() {
         console.error('Failed to fetch companies', error);
       }
     };
-      fetchCompanies();
-
-    return () => {};
-  }); 
+    fetchCompanies();
+  
+    return () => {}; // Cleanup function
+  }, []); // Dependency array
+  
 
   const handleAddClick = () => {
     setShowAddModal(true); // Show add modal when "Add Company" is clicked
