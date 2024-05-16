@@ -1,3 +1,4 @@
+import './ManagerDashboard.css';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ function ManagerDashboard() {
   };
 
   return (
-    <div>
+    <div className="manager-dashboard">  
       <h2>Manager Dashboard</h2>
       <button onClick={handleMission}>Mission</button>
       <button onClick={handleCompany}>Company</button>

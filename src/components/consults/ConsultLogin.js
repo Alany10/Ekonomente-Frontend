@@ -28,7 +28,7 @@ function ConsultLogin() {
 
   return (
     <div className="consult-login-container">
-      <h2>Consult Login</h2>
+      <h2>Consultant Login</h2>
       <input 
         type="text" 
         placeholder="Email" 

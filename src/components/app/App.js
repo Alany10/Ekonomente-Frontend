@@ -20,7 +20,7 @@ function App() {
           <img src={logo} alt="Logo" className="logo" />
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/consult">Consult</Link></li>
+            <li><Link to="/consult">Consultant</Link></li>
             <li><Link to="/manager">Manager</Link></li>
           </ul>
         </nav>
