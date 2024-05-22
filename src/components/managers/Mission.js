@@ -14,29 +14,29 @@ function Mission() {
   const [endDate, setEndDate] = useState('');
   const history = useHistory(); // Get history object
 
+  const fetchMissions = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/mission/allMissions');
+      setMissions(response.data);
+      setError('');
+    } catch (error) {
+      setError('Failed to fetch missions');
+      console.error('Failed to fetch missions', error);
+    }
+  };
+
+  const fetchCompanies = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/company/allCompanies');
+      setCompanies(response.data);
+      setError('');
+    } catch (error) {
+      setError('Failed to fetch companies');
+      console.error('Failed to fetch companies', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchMissions = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/mission/allMissions');
-        setMissions(response.data);
-        setError('');
-      } catch (error) {
-        setError('Failed to fetch missions');
-        console.error('Failed to fetch missions', error);
-      }
-    };
-
-    const fetchCompanies = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/company/allCompanies');
-        setCompanies(response.data);
-        setError('');
-      } catch (error) {
-        setError('Failed to fetch companies');
-        console.error('Failed to fetch companies', error);
-      }
-    };
-
     fetchMissions();
     fetchCompanies();
 
@@ -62,8 +62,8 @@ function Mission() {
       };
       await axios.post('http://localhost:8080/mission/register', missionData);
       setShowCreateMissionForm(false);
+      await fetchMissions(); 
       setError('');
-      // Optionally, you can display a success message here
     } catch (error) {
       setError('Failed to create mission. Please try again.');
       console.error('Failed to create mission', error);
@@ -76,12 +76,27 @@ function Mission() {
     }
   };
 
+  const handleDeleteMission = async () => {
+    if (selectedMission) {
+      try {
+        await axios.delete(`http://localhost:8080/mission/${selectedMission.id}/delete`);
+        await fetchMissions(); // Refresh missions list after deletion
+        setSelectedMission(null); // Clear selected mission
+        setError('');
+      } catch (error) {
+        setError('Failed to delete mission. Please try again.');
+        console.error('Failed to delete mission', error);
+      }
+    }
+  };
+
   return (
     <div>
       <h2>Missions</h2>
       <div>
         <button onClick={handleCreateMission}>Create Mission</button>
         <button onClick={handleAssignConsult} disabled={!selectedMission}>Assign Consult</button>
+        <button onClick={handleDeleteMission} disabled={!selectedMission}>Delete Mission</button>
       </div>
       {showCreateMissionForm && (
         <div>

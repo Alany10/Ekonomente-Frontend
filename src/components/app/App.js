@@ -7,9 +7,10 @@ import ConsultLogin from '../consults/ConsultLogin';
 import ManagerLogin from '../managers/ManagerLogin';
 import ManagerDashboard from '../managers/ManagerDashboard'; 
 import ManagerMissions from '../managers/Mission';
-import Consults from '../managers/Consult';
+import AssignConsults from '../managers/AssignConsult';
 import Companies from '../managers/Company';
 import ManagerTimestamps from '../managers/Timestamp';
+import Consults from '../managers/Consult';
 import ConsultMissions from '../consults/Mission';
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
           <img src={logo} alt="Logo" className="logo" />
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/consult">Consult</Link></li>
+            <li><Link to="/consult">Consultant</Link></li>
             <li><Link to="/manager">Manager</Link></li>
           </ul>
         </nav>
@@ -32,9 +33,10 @@ function App() {
           <Route path="/manager/:managerId/dashboard" component={ManagerDashboard} />
           <Route path="/manager/:managerId/mission" component={ManagerMissions} />
           <Route path="/manager/:managerId/company" component={Companies} />
-          <Route path="/mission/:missionId/consult" component={Consults} />
+          <Route path="/mission/:missionId/consult" component={AssignConsults} />
           <Route path="/manager/:managerId/timestamp" component={ManagerTimestamps} />
           <Route path="/consult/:consultId/mission" component={ConsultMissions} />
+          <Route path="/manager/:managerId/consult" component={Consults} />
         </Switch>
       </div>
     </Router>

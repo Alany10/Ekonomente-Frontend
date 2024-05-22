@@ -1,8 +1,10 @@
+import './ManagerDashboard.css';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 function ManagerDashboard() {
   const history = useHistory();
+  const managerName = localStorage.getItem('managerName');  // Retrieve the manager's name from local storage
 
   const handleMission = () => {
     history.push('mission');
@@ -16,12 +18,17 @@ function ManagerDashboard() {
     history.push('timestamp');
   };
 
+  const handleConsult = () => {
+    history.push('consult'); // Navigate to the consult site
+  };
+
   return (
-    <div>
-      <h2>Manager Dashboard</h2>
+    <div className="manager-dashboard">
+      <h2>Welcome, {managerName}</h2>  // Display "Welcome, [Manager Name]"
       <button onClick={handleMission}>Mission</button>
       <button onClick={handleCompany}>Company</button>
       <button onClick={handleTimestamps}>Timestamp</button>
+      <button onClick={handleConsult}>Consult</button> {/* Add Consult button */}
     </div>
   );
 }
