@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-function Consult() {
+function AssignConsult() {
   const [consults, setConsults] = useState([]);
   const [selectedConsult, setSelectedConsult] = useState(null);
   const [error, setError] = useState('');
@@ -10,18 +10,18 @@ function Consult() {
   const [showErrorModal, setShowErrorModal] = useState(false); // State variable for error modal
   const { missionId } = useParams();
 
-  useEffect(() => {
-    const fetchConsults = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/consult/allConsultants');
-        setConsults(response.data);
-        setError('');
-      } catch (error) {
-        setError('Failed to fetch Consults');
-        console.error('Failed to fetch Consults', error);
-      }
-    };
+  const fetchConsults = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/consult/allConsultants');
+      setConsults(response.data);
+      setError('');
+    } catch (error) {
+      setError('Failed to fetch Consults');
+      console.error('Failed to fetch Consults', error);
+    }
+  };
 
+  useEffect(() => {
     fetchConsults();
 
     return () => {};
@@ -35,6 +35,7 @@ function Consult() {
     if (selectedConsult) {
       try {
         await axios.put(`http://localhost:8080/mission/${missionId}/${selectedConsult.id}/assignConsult`);
+        await fetchConsults();
         setShowSuccessModal(true); // Show success modal on successful assignment
       } catch (error) {
         console.error('Failed to confirm consult', error);
@@ -66,7 +67,7 @@ function Consult() {
         ))}
       </ul>
 
-      <button onClick={handleConfirmConsult} disabled = {!selectedConsult}>Confirm Consult</button>
+      <button onClick={handleConfirmConsult} disabled={!selectedConsult}>Confirm Consult</button>
 
       {/* Success Modal */}
       {showSuccessModal && (
@@ -91,4 +92,4 @@ function Consult() {
   );
 }
 
-export default Consult;
+export default AssignConsult;

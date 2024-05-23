@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Mission() {
+  const { consultId } = useParams(); // Extract consultId from URL
   const [missions, setMissions] = useState([]);
   const [selectedMission, setSelectedMission] = useState(null);
   const [error, setError] = useState('');
@@ -11,9 +12,19 @@ function Mission() {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [date, setDate] = useState('');
-  const { consultId } = useParams();
+  const [consultName, setConsultName] = useState(''); // State to store consultant's name
 
   useEffect(() => {
+    const fetchConsultantName = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/consult/${consultId}/name`);
+        setConsultName(response.data);
+      } catch (error) {
+        console.error('Error fetching consultant name:', error);
+        setConsultName('Consultant'); // Fallback if there's an error
+      }
+    };
+
     const fetchMissions = async () => {
       try {
         const response = await axios.get('http://localhost:8080/mission/allMissions');
@@ -25,10 +36,9 @@ function Mission() {
       }
     };
 
-    fetchMissions();
+    fetchConsultantName(); // Fetch consultant's name
+    fetchMissions(); // Fetch missions
 
-    // Cleanup function to cancel any ongoing requests
-    return () => {};
   }, [consultId]);
 
   const handleMissionClick = (missionDetails) => {
@@ -62,6 +72,7 @@ function Mission() {
 
   return (
     <div>
+      <h2>Welcome, {consultName}</h2> {/* Display consultant's name */}
       <h2>Missions</h2>
       {error && <p>{error}</p>}
       <ul>
