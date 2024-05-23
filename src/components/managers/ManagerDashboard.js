@@ -20,7 +20,7 @@ function ManagerDashboard() {
 
   return (
     <div className="manager-dashboard">
-      <h2>Welcome, {managerName}</h2>  // Display "Welcome, [Manager Name]"
+      <h2>Welcome{managerName}</h2>  
       <button onClick={handleMission}>Mission</button>
       <button onClick={handleCompany}>Company</button>
       <button onClick={handleTimestamps}>Timestamp</button>

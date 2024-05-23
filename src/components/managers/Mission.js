@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import './Mission.css'; 
 
 function Mission() {
   const [missions, setMissions] = useState([]);
@@ -77,11 +78,11 @@ function Mission() {
   };
 
   return (
-    <div>
-      <h2>Missions</h2>
-      <div>
-        <button onClick={handleCreateMission}>Create Mission</button>
-        <button onClick={handleAssignConsult} disabled={!selectedMission}>Assign Consult</button>
+    <div className="mission-container">
+      <h2 className="mission-header">Missions</h2>
+      <div className="mission-buttons">
+        <button className="button" onClick={handleCreateMission}>Create Mission</button>
+        <button className="button" onClick={handleAssignConsult} disabled={!selectedMission}>Assign Consult</button>
       </div>
       {showCreateMissionForm && (
         <div>
@@ -108,25 +109,21 @@ function Mission() {
           )}
         </div>
       )}
-      {error && <p>{error}</p>}
-      <ul>
-        {missions.map((missionMap, index) => (
-          <li
-            key={index}
-            onClick={() => handleMissionClick({ id: Object.keys(missionMap)[0], details: Object.values(missionMap)[0] })}
-            style={{
-              cursor: 'pointer',
-              marginBottom: '10px',
-              padding: '5px',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              backgroundColor: selectedMission && selectedMission.id === Object.keys(missionMap)[0] ? '#e0f0ff' : 'transparent',
-            }}
-          >
-            {Object.values(missionMap)[0]}
-          </li>
-        ))}
-      </ul>
+      {error && <p className="error-message">{error}</p>}
+      <table className="mission-table">
+        <thead>
+          <tr>
+            <th>Mission Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {missions.map((missionMap, index) => (
+            <tr key={index} onClick={() => handleMissionClick({ id: Object.keys(missionMap)[0], details: Object.values(missionMap)[0] })}>
+              <td>{Object.values(missionMap)[0]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
